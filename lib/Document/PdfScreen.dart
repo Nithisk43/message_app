@@ -152,7 +152,7 @@ class _PdfScreenState extends State<PdfScreen> {
                               "Type": "Document",
                             }).then((value) {
                               Navigator.pop(context);
-                            docUrl;
+                            document;
                             });
                           },
                           icon: const Icon(
