@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1046984787158",
+    "project_id": "chatapp-cf843",
+    "storage_bucket": "chatapp-cf843.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046984787158:android:c27fcde188b5aad3eb7577",
+        "android_client_info": {
+          "package_name": "com.example.message_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEIhFdluAXDjc2eOy0SCvI80A_m02mwNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
