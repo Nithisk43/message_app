@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'PhoneScreen.dart';
 import 'SearchScreen.dart';
@@ -185,12 +186,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 20,
                 color: Colors.black,
               ),
-              onTap: () {
-                Navigator.replace(context,
-                    oldRoute:
-                        MaterialPageRoute(builder: (ctx) => const HomeScreen()),
-                    newRoute: MaterialPageRoute(
-                        builder: (ctx) => const PhoneScreen()));
+              onTap: () async {
+                var pref = await SharedPreferences.getInstance();
+                pref.setBool('logout', true);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const PhoneScreen()));
               },
             ),
           ],
