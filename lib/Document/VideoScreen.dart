@@ -93,11 +93,6 @@ class _VideoScreenState extends State<VideoScreen> {
               color: Colors.transparent,
               child: Stack(
                 children: [
-                  /*SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 150,
-                    child:Image.network(docUrl),
-                  ),*/
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
