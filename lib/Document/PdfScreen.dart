@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
@@ -152,9 +152,7 @@ class _PdfScreenState extends State<PdfScreen> {
                               "Type": "Document",
                             }).then((value) {
                               Navigator.pop(context);
-                              setState(() {
-                                document;
-                              });
+                              document;
                             });
                           },
                           icon: const Icon(

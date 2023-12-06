@@ -786,6 +786,7 @@ class _ChatScreenState extends State<ChatScreen> {
           .child("document/${file.name}");
       var uploadPdf = await ref.putFile(doc!);
       docUrl = await uploadPdf.ref.getDownloadURL().then((value) async {
+        loadDocument();
         PDFDocument docc=await PDFDocument.fromFile(doc!);
         Navigator.push(context,MaterialPageRoute(
                 builder: (ctx) => PdfScreen(id: widget.id, url: value)));
