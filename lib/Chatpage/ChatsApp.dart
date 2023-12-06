@@ -193,7 +193,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 child: Container(
                                   color: Colors.blue,
                                   padding: const EdgeInsets.only(
-                                      top: 5, bottom: 5, left: 10, right: 5),
+                                      top:7, bottom:7, left:10, right:5),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -272,12 +272,13 @@ class _ChatScreenState extends State<ChatScreen> {
                                   ),
                                 ));
                           }
+                          const SizedBox(height:10,);
                           return Align(
                             alignment: Alignment.topLeft,
                             child: Container(
                               color: Colors.teal,
                               padding: const EdgeInsets.only(
-                                  top: 5, bottom: 5, left: 10, right: 5),
+                                  top:7, bottom:7, left: 10, right:5),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,

@@ -18,7 +18,7 @@ class _CameraScreenState extends State<CameraScreen> {
       Permission.camera,
       Permission.phone,
       Permission.contacts,
-      Permission.notification
+      Permission.notification,
     ].request();
   }
   @override
