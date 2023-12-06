@@ -122,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 color: Colors.black,
               )),
           PopupMenuButton<String>(
-              color: Colors.black,
+              color: Colors.white,
               shape: const ContinuousRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(5),
@@ -211,8 +211,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                       snapshot.data!.docs[index]["Type"] ==
                                               "image"
                                           ? SizedBox(
-                                              height:300,
-                                              width: 400,
+                                              height:100,
+                                              width:200,
                                               child: Image.network(snapshot
                                                   .data!.docs[index]["image"]),
                                             )
@@ -298,8 +298,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               children: [
                                 snapshot.data!.docs[index]["Type"] == "image"
                                     ? SizedBox(
-                                        height:300,
-                                        width:400,
+                                        height:100,
+                                        width:200,
                                         child: Image.network(snapshot
                                             .data!.docs[index]["image"]),
                                       )
@@ -455,6 +455,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                             .indigo,
                                                                     child: IconButton(
                                                                         onPressed: () {
+                                                                          Navigator.pop(context);
                                                                           pdfdoc(
                                                                               context);
                                                                         },
@@ -491,6 +492,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                             .lightBlueAccent,
                                                                     child: IconButton(
                                                                         onPressed: () {
+                                                                          Navigator.pop(context);
                                                                           videofile(
                                                                               context);
                                                                         },
@@ -527,6 +529,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                             .purple,
                                                                     child: IconButton(
                                                                         onPressed: () {
+                                                                          Navigator.pop(context);
                                                                           pickAadharImage(
                                                                               context);
                                                                         },
