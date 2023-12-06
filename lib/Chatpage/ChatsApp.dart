@@ -200,8 +200,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                     snapshot.data!.docs[index]["Type"] ==
                                             "image"
                                         ? SizedBox(
-                                            height: 100,
-                                            width: 100,
+                                            height:300,
+                                            width: 400,
                                             child: Image.network(snapshot
                                                 .data!.docs[index]["image"]),
                                           )
@@ -260,10 +260,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                                     color: Colors.grey,
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            top: 7,
-                                                            bottom: 7,
+                                                            top:10,
+                                                            bottom:10,
                                                             left: 10,
-                                                            right: 5),
+                                                            right:10),
                                                     child: Text(
                                                         snapshot.data!
                                                                 .docs[index]
@@ -286,8 +286,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               children: [
                                 snapshot.data!.docs[index]["Type"] == "image"
                                     ? SizedBox(
-                                        height: 100,
-                                        width: 100,
+                                        height:300,
+                                        width:400,
                                         child: Image.network(snapshot
                                             .data!.docs[index]["image"]),
                                       )
@@ -347,10 +347,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                             : Container(
                                                 color: Colors.teal,
                                                 padding: const EdgeInsets.only(
-                                                    top: 7,
-                                                    bottom: 7,
+                                                    top:10,
+                                                    bottom:10,
                                                     left: 10,
-                                                    right: 5),
+                                                    right:10),
                                                 child: Text(
                                                     snapshot.data!.docs[index]
                                                         ["Message"],
