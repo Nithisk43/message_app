@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'ChatsApp.dart';
 import 'PhoneScreen.dart';
 import 'SearchScreen.dart';
 
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.camera_alt_outlined,
                   size: 20, color: Colors.white)),
           PopupMenuButton<String>(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onSelected: (v) {
                 print(v);
               },
@@ -146,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           } else {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                         }),
                   ],
@@ -196,6 +197,44 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      body:controller.text.isEmpty
+          ? StreamBuilder(
+          stream: FirebaseFirestore.instance.collection("new").snapshots(),
+          builder: (context, snapshot) {
+            print(snapshot.data!.docs.length);
+            int length = snapshot.data!.docs.length;
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (snapshot.data!.docs[index].id !=
+                      FirebaseAuth.instance.currentUser!.uid) {
+                    return ListTile(
+                      title: Text(snapshot.data!.docs[index]['Name']),
+                      subtitle: Text(snapshot.data!.docs[index]['Mail']),
+                      leading: InkWell(
+                        onTap: () {},
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                              snapshot.data!.docs[index]["profile"]),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(context,MaterialPageRoute(builder:(ctx)=>
+                            ChatScreen(
+                              id: snapshot.data!.docs[index].id,
+                              name: snapshot.data!.docs[index]["Name"],
+                              profile: snapshot.data!.docs[index]["profile"],
+                              url:'',
+                            )
+                        ));
+                      },
+                    );
+                  }
+                });
+          })
+          :Center(child: CircularProgressIndicator()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(
