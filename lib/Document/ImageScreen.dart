@@ -142,6 +142,7 @@ class _ImageScreenState extends State<ImageScreen> {
                                 .collection("chats")
                                 .doc()
                                 .set({
+                              "Message":controller.text,
                               "Sendby":
                                   FirebaseAuth.instance.currentUser!.uid,
                               "Sendto": widget.id,
@@ -150,6 +151,7 @@ class _ImageScreenState extends State<ImageScreen> {
                               "Type": "image",
                             }).then((value) {
                               Navigator.pop(context);
+                              controller.clear();
                               setState(() {
                               widget.url;
                               });

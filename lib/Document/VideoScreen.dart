@@ -196,6 +196,7 @@ class _VideoScreenState extends State<VideoScreen> {
                             }).then((value) {
                               Navigator.pop(context);
                               docUrl;
+                              text.clear();
                             });
                           },
                           icon: const Icon(

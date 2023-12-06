@@ -23,7 +23,7 @@ class _PdfScreenState extends State<PdfScreen> {
   loadDocument()async{
     document = await PDFDocument.fromURL(widget.url);
     setState(() {
-      isloading = false;
+      isloading = true;
     });
   }
   @override
@@ -144,7 +144,7 @@ class _PdfScreenState extends State<PdfScreen> {
                                 .collection("chats")
                                 .doc()
                                 .set({
-                              "Message": text,
+                              "Message": text.text,
                               "Sendby": FirebaseAuth.instance.currentUser!.uid,
                               "Sendto": widget.id,
                               "Document": widget.url,
@@ -152,7 +152,8 @@ class _PdfScreenState extends State<PdfScreen> {
                               "Type": "Document",
                             }).then((value) {
                               Navigator.pop(context);
-                              document;
+                             docUrl;
+                             text.clear();
                             });
                           },
                           icon: const Icon(
