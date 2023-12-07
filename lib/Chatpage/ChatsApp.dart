@@ -191,100 +191,35 @@ class _ChatScreenState extends State<ChatScreen> {
                               FirebaseAuth.instance.currentUser!.uid) {
                             return Align(
                                 alignment: Alignment.topRight,
-                                child: WillPopScope(
-                                  onWillPop: (){
-                                    if(show){
-                                      setState(() {
-                                        show= false;
-                                      });
-                                    }else{
-                                      Navigator.pop(context);
-                                    }
-                                    return Future.value(false);
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      snapshot.data!.docs[index]["Type"] ==
-                                              "image"
-                                          ? SizedBox(
-                                              height:100,
-                                              width:200,
-                                              child: Image.network(snapshot
-                                                  .data!.docs[index]["image"]),
-                                            )
-                                          : snapshot.data!.docs[index]["Type"] ==
-                                                  "Document"
-                                              ? SizedBox(
-                                                  height: 100,
-                                                  width: 150,
-                                                  child: Column(
-                                                    children: [
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            print(snapshot.data!
-                                                                    .docs[index]
-                                                                ["Document"]);
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (ctx) => PdfScreen(
-                                                                        id: widget
-                                                                            .id,
-                                                                        url: snapshot
-                                                                            .data!
-                                                                            .docs[index]["Document"])));
-                                                          },
-                                                          icon: const Icon(Icons
-                                                              .picture_as_pdf))
-                                                    ],
-                                                  ))
-                                              : snapshot.data!.docs[index]
-                                                          ["Type"] ==
-                                                      "Video"
-                                                  ? SizedBox(
-                                                      height: 100,
-                                                      width: 150,
-                                                      child: Column(children: [
-                                                        IconButton(
-                                                            onPressed: () {
-                                                              print(snapshot.data!
-                                                                      .docs[index]
-                                                                  ["Video"]);
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (ctx) => VideoScreen(
-                                                                          id: widget
-                                                                              .id,
-                                                                          url: snapshot
-                                                                              .data!
-                                                                              .docs[index]["Video"])));
-                                                            },
-                                                            icon: const Icon(
-                                                                Icons.play_arrow))
-                                                      ]))
-                                                  : Container(
-                                                      color: Colors.grey,
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top:10,
-                                                              bottom:10,
-                                                              left: 10,
-                                                              right:10),
-                                                      child: Text(
-                                                          snapshot.data!
-                                                                  .docs[index]
-                                                              ["Message"],
-                                                          style: const TextStyle(
-                                                              color:
-                                                                  Colors.white)),
-                                                    )
-                                    ],
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    snapshot.data!.docs[index]["Type"] ==
+                                            "image"
+                                        ? SizedBox(
+                                            height: 100,
+                                            width: 200,
+                                            child: Image.network(snapshot
+                                                .data!.docs[index]["image"]),
+                                          )
+                                        : Container(
+                                            color: Colors.grey,
+                                            padding: const EdgeInsets.only(
+                                                top: 10,
+                                                bottom: 10,
+                                                left: 10,
+                                                right: 10),
+                                            child: Text(
+                                                snapshot.data!.docs[index]
+                                                    ["Message"],
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
+                                          )
+                                  ],
                                 ));
                           }
                           const SizedBox(
@@ -298,8 +233,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               children: [
                                 snapshot.data!.docs[index]["Type"] == "image"
                                     ? SizedBox(
-                                        height:100,
-                                        width:200,
+                                        height: 100,
+                                        width: 200,
                                         child: Image.network(snapshot
                                             .data!.docs[index]["image"]),
                                       )
@@ -359,10 +294,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                             : Container(
                                                 color: Colors.teal,
                                                 padding: const EdgeInsets.only(
-                                                    top:10,
-                                                    bottom:10,
+                                                    top: 10,
+                                                    bottom: 10,
                                                     left: 10,
-                                                    right:10),
+                                                    right: 10),
                                                 child: Text(
                                                     snapshot.data!.docs[index]
                                                         ["Message"],
@@ -455,7 +390,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                             .indigo,
                                                                     child: IconButton(
                                                                         onPressed: () {
-                                                                          Navigator.pop(context);
+                                                                          Navigator.pop(
+                                                                              context);
                                                                           pdfdoc(
                                                                               context);
                                                                         },
@@ -492,7 +428,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                             .lightBlueAccent,
                                                                     child: IconButton(
                                                                         onPressed: () {
-                                                                          Navigator.pop(context);
+                                                                          Navigator.pop(
+                                                                              context);
                                                                           videofile(
                                                                               context);
                                                                         },
@@ -529,7 +466,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                             .purple,
                                                                     child: IconButton(
                                                                         onPressed: () {
-                                                                          Navigator.pop(context);
+                                                                          Navigator.pop(
+                                                                              context);
                                                                           pickAadharImage(
                                                                               context);
                                                                         },
