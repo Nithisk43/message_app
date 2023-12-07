@@ -19,7 +19,7 @@ class _CameraScreenState extends State<CameraScreen> {
       Permission.phone,
       Permission.contacts,
       Permission.notification,
-      Permission.storage
+
     ].request();
     print(status);
   }
