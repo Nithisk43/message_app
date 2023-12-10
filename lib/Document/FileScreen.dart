@@ -21,7 +21,6 @@ class _FiledowloadScreenState extends State<FiledowloadScreen> {
     try {
       Directory? directory = Directory('/storage/emulated/0/Download');
       if (await directory.exists()) {
-        // directoryapplevel = await getExternalStorageDirectory();
         print(directory.path);
         await dio
             .download(
@@ -72,15 +71,9 @@ class _FiledowloadScreenState extends State<FiledowloadScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // downloadFile("https://firebasestorage.googleapis.com/v0/b/schoolapp-27136.appspot.com/o/Question%2FLehengas%20Lookbook-%20Label%20Vida%20sale.pdf?alt=media&token=2fd9461f-149d-43ac-8fa7-fb26505e97f1",'pdf');
-          /*  downloadFile(
-              "https://firebasestorage.googleapis.com/v0/b/schoolapp-27136.appspot.com/o/AdminProfileImage%2F9cb60960d0e24f97aa1d8da5a74d10af.jpeg?alt=media&token=81734432-1083-4bad-8753-a6943e2873db",
-              'png');*/
           downloadFile(
-              "https://firebasestorage.googleapis.com/v0/b/chatapp-cf843.appspot.com/o/Video%2FVideo%2FVID-20231026-WA0001.mp4?alt=media&token=eec609a5-7522-4284-9042-30126a258aa9",'mp4');
-        },
+              "https://firebasestorage.googleapis.com/v0/b/chatapp-cf843.appspot.com/o/Video%2FVideo%2FVID-20231026-WA0001.mp4?alt=media&token=eec609a5-7522-4284-9042-30126a258aa9",'mp4');},
       ),
-      // body: Image.network("https://firebasestorage.googleapis.com/v0/b/schoolapp-27136.appspot.com/o/AdminIdImage%2Fimage_picker1170284923.jpg?alt=media&token=3af4a49d-89bc-4ad8-9d0f-7871823e8847"),
     );
   }
 }
