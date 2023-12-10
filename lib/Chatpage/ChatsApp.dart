@@ -60,6 +60,8 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
+  bool _isExpanded = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -192,33 +194,34 @@ class _ChatScreenState extends State<ChatScreen> {
                             return Align(
                                 alignment: Alignment.topRight,
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  mainAxisSize: MainAxisSize.max,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     snapshot.data!.docs[index]["Type"] ==
                                             "image"
-                                        ? SizedBox(
-                                            height: 100,
-                                            width: 200,
-                                            child: Image.network(snapshot
-                                                .data!.docs[index]["image"]),
+                                        ? Image.network(
+                                            snapshot.data!.docs[index]["image"],
+                                            fit: BoxFit.contain,
+                                            height: 120,
+                                            width: 150,
                                           )
-                                        : Container(
-                                            color: Colors.grey,
-                                            padding: const EdgeInsets.only(
-                                                top: 10,
-                                                bottom: 10,
-                                                left: 10,
-                                                right: 10),
-                                            child: Text(
-                                                snapshot.data!.docs[index]
-                                                    ["Message"],
-                                                style: const TextStyle(
-                                                    color: Colors.white)),
-                                          )
+                                        : snapshot.data!.docs[index]["Type"] ==
+                                                "Document"
+                                            ? PDFViewer(document:document)
+                                            : Container(
+                                                color: Colors.grey,
+                                                padding: const EdgeInsets.only(
+                                                    top: 10,
+                                                    bottom: 10,
+                                                    left: 10,
+                                                    right: 10),
+                                                child: Text(
+                                                    snapshot.data!.docs[index]
+                                                        ["Message"],
+                                                    style: const TextStyle(
+                                                        color: Colors.white)),
+                                              )
                                   ],
                                 ));
                           }

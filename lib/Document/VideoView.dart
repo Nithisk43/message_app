@@ -1,65 +1,54 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
-class VideoViewScreen extends StatefulWidget {
-  const VideoViewScreen({super.key});
+class DymamicLinkPage extends StatefulWidget {
+  const DymamicLinkPage({super.key});
 
   @override
-  State<VideoViewScreen> createState() => _VideoViewScreenState();
+  State<DymamicLinkPage> createState() => _DymamicLinkPageState();
 }
 
+class _DymamicLinkPageState extends State<DymamicLinkPage> {
+  static Future<String> createDynamicLink(
+      bool short,
+      ) async {
+    String linkMessage;
 
-class _VideoViewScreenState extends State<VideoViewScreen> {
-  late VideoPlayerController _controller;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://fbdemo12.page.link',
+      link: Uri.parse('https://www.google.com/'),
+      // link: Uri.parse('https://www.giventa.in/?page=Groups&id=GA0001&postid=xyz'),
+      androidParameters: const AndroidParameters(
+        packageName: 'com.example.message_app',
+        minimumVersion: 0,
+      ),
+      // iosParameters: const IOSParameters(bundleId: "com.example.message_app",appStoreId: "6464373409"),
+    );
+
+    Uri? url;
+    if (short) {
+      // final ShortDynamicLink shortLink = await parameters.buildShortLink();
+      var d = await FirebaseDynamicLinks.instance.buildLink(parameters);
+
+      // final ShortDynamicLink shortLink = await d;
+      // url = shortLink.shortUrl;
+      print('sdfvgbhnm');
+      print("Url :"+d.toString());
+    } else {
+      // url = await parameters.buildUrl();
+    }
+
+    linkMessage = url.toString();
+    return linkMessage;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: Colors.transparent,
-        child: Stack(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: _controller.value.isInitialized
-                  ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller))
-                  : Container(),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-                  });
-                },
-                child: CircleAvatar(
-                  radius: 33,
-                  backgroundColor: Colors.black38,
-                  child: Icon(
-                    _controller.value.isPlaying
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-              ),
-            ),
-
-          ],
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          createDynamicLink(true);
+        },
       ),
     );
   }
