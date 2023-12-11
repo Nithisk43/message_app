@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:video_player/video_player.dart';
 import '../Document/ImageScreen.dart';
 import '../Document/PdfScreen.dart';
 import '../Document/VideoScreen.dart';
@@ -60,6 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
+  late VideoPlayerController _controller;
   bool _isExpanded = false;
 
   @override
@@ -208,20 +210,115 @@ class _ChatScreenState extends State<ChatScreen> {
                                           )
                                         : snapshot.data!.docs[index]["Type"] ==
                                                 "Document"
-                                            ? PDFViewer(document:document)
-                                            : Container(
-                                                color: Colors.grey,
-                                                padding: const EdgeInsets.only(
-                                                    top: 10,
-                                                    bottom: 10,
-                                                    left: 10,
-                                                    right: 10),
-                                                child: Text(
-                                                    snapshot.data!.docs[index]
-                                                        ["Message"],
-                                                    style: const TextStyle(
-                                                        color: Colors.white)),
+                                            ? Container(
+                                                height: 60,
+                                                width: 100,
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  // image:DecorationImage(
+                                                  //     image:NetworkImage(widget.url))
+                                                ),
+                                                child: Expanded(
+                                                  child: SizedBox(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        CircleAvatar(
+                                                            radius: 20,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            child: IconButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .download)))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
                                               )
+                                            : snapshot.data!.docs[index]
+                                                        ["Type"] ==
+                                                    "Video"
+                                                ? Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .height,
+                                                        child: _controller.value
+                                                                .isInitialized
+                                                            ? AspectRatio(
+                                                                aspectRatio:
+                                                                    _controller
+                                                                        .value
+                                                                        .aspectRatio,
+                                                                child: VideoPlayer(
+                                                                    _controller))
+                                                            : Container(),
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: InkWell(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _controller.value
+                                                                      .isPlaying
+                                                                  ? _controller
+                                                                      .pause()
+                                                                  : _controller
+                                                                      .play();
+                                                            });
+                                                          },
+                                                          child: CircleAvatar(
+                                                            radius: 33,
+                                                            backgroundColor:
+                                                                Colors.black38,
+                                                            child: Icon(
+                                                              _controller.value
+                                                                      .isPlaying
+                                                                  ? Icons.pause
+                                                                  : Icons
+                                                                      .play_arrow,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 50,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(
+                                                    color: Colors.grey,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 10,
+                                                            bottom: 10,
+                                                            left: 10,
+                                                            right: 10),
+                                                    child: Text(
+                                                        snapshot.data!
+                                                                .docs[index]
+                                                            ["Message"],
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  )
                                   ],
                                 ));
                           }
@@ -243,57 +340,93 @@ class _ChatScreenState extends State<ChatScreen> {
                                       )
                                     : snapshot.data!.docs[index]["Type"] ==
                                             "Document"
-                                        ? SizedBox(
-                                            height: 100,
-                                            width: 150,
-                                            child: Column(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      print(snapshot
-                                                              .data!.docs[index]
-                                                          ["Document"]);
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (ctx) => PdfScreen(
-                                                                  id: widget.id,
-                                                                  url: snapshot
-                                                                          .data!
-                                                                          .docs[index]
-                                                                      [
-                                                                      "Document"])));
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.picture_as_pdf))
-                                              ],
-                                            ))
+                                        ? Container(
+                                            height: 60,
+                                            width: 100,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              // image:DecorationImage(
+                                              //     image:NetworkImage(widget.url))
+                                            ),
+                                            child: Expanded(
+                                              child: SizedBox(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    CircleAvatar(
+                                                        radius: 20,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        child: IconButton(
+                                                            onPressed: () {},
+                                                            icon: const Icon(
+                                                                Icons
+                                                                    .download)))
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          )
                                         : snapshot.data!.docs[index]["Type"] ==
                                                 "Video"
-                                            ? SizedBox(
-                                                height: 100,
-                                                width: 150,
-                                                child: Column(children: [
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        print(snapshot.data!
-                                                                .docs[index]
-                                                            ["Video"]);
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (ctx) => VideoScreen(
-                                                                    id: widget
-                                                                        .id,
-                                                                    url: snapshot
-                                                                            .data!
-                                                                            .docs[index]
-                                                                        [
-                                                                        "Video"])));
+                                            ? Stack(
+                                                children: [
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height,
+                                                    child: _controller
+                                                            .value.isInitialized
+                                                        ? AspectRatio(
+                                                            aspectRatio:
+                                                                _controller
+                                                                    .value
+                                                                    .aspectRatio,
+                                                            child: VideoPlayer(
+                                                                _controller))
+                                                        : Container(),
+                                                  ),
+                                                  Align(
+                                                    alignment: Alignment.center,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          _controller.value
+                                                                  .isPlaying
+                                                              ? _controller
+                                                                  .pause()
+                                                              : _controller
+                                                                  .play();
+                                                        });
                                                       },
-                                                      icon: const Icon(
-                                                          Icons.play_arrow))
-                                                ]))
+                                                      child: CircleAvatar(
+                                                        radius: 33,
+                                                        backgroundColor:
+                                                            Colors.black38,
+                                                        child: Icon(
+                                                          _controller.value
+                                                                  .isPlaying
+                                                              ? Icons.pause
+                                                              : Icons
+                                                                  .play_arrow,
+                                                          color: Colors.white,
+                                                          size: 50,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
                                             : Container(
                                                 color: Colors.teal,
                                                 padding: const EdgeInsets.only(
@@ -360,292 +493,143 @@ class _ChatScreenState extends State<ChatScreen> {
                           suffixIcon: Transform.rotate(
                             angle: -120,
                             child: IconButton(
-                                onPressed: () => showDialog(
-                                    context: context,
-                                    builder: (ctx) => Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: SizedBox(
-                                            height: 350,
-                                            width: 350,
-                                            child: AlertDialog(
-                                              actions: [
-                                                Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 20),
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return SizedBox(
+                                          height: 150,
+                                          width: 200,
+                                          child: AlertDialog(
+                                            actions: [
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Column(
                                                         children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: [
-                                                              Column(
-                                                                children: [
-                                                                  CircleAvatar(
-                                                                    radius: 25,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .indigo,
-                                                                    child: IconButton(
-                                                                        onPressed: () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                          pdfdoc(
-                                                                              context);
-                                                                        },
-                                                                        icon: const Icon(
-                                                                          Icons
-                                                                              .insert_drive_file,
-                                                                          size:
-                                                                              27,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  const Text(
-                                                                    "Document",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blueGrey,
-                                                                        fontSize:
-                                                                            15),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                  height: 15),
-                                                              Column(
-                                                                children: [
-                                                                  CircleAvatar(
-                                                                    radius: 25,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .lightBlueAccent,
-                                                                    child: IconButton(
-                                                                        onPressed: () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                          videofile(
-                                                                              context);
-                                                                        },
-                                                                        icon: const Icon(
-                                                                          Icons
-                                                                              .video_collection_outlined,
-                                                                          size:
-                                                                              27,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  const Text(
-                                                                    "Video",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blueGrey,
-                                                                        fontSize:
-                                                                            15),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                  height: 15),
-                                                              Column(
-                                                                children: [
-                                                                  CircleAvatar(
-                                                                    radius: 25,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .purple,
-                                                                    child: IconButton(
-                                                                        onPressed: () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                          pickAadharImage(
-                                                                              context);
-                                                                        },
-                                                                        icon: const Icon(
-                                                                          Icons
-                                                                              .insert_photo,
-                                                                          size:
-                                                                              27,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  const Text(
-                                                                    "Gallery",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blueGrey,
-                                                                        fontSize:
-                                                                            15),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ],
+                                                          CircleAvatar(
+                                                            radius: 20,
+                                                            child: IconButton(
+                                                                onPressed: () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .insert_drive_file,
+                                                                    color: Colors
+                                                                        .indigo)),
                                                           ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: [
-                                                              Column(
-                                                                children: [
-                                                                  CircleAvatar(
-                                                                    radius: 25,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .orange,
-                                                                    child: IconButton(
-                                                                        onPressed: () {},
-                                                                        icon: const Icon(
-                                                                          Icons
-                                                                              .headphones,
-                                                                          size:
-                                                                              27,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  const Text(
-                                                                    "Audio",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blueGrey,
-                                                                        fontSize:
-                                                                            15),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                  height: 15),
-                                                              Column(
-                                                                children: [
-                                                                  CircleAvatar(
-                                                                    radius: 25,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .pink,
-                                                                    child: IconButton(
-                                                                        onPressed: () {},
-                                                                        icon: const Icon(
-                                                                          Icons
-                                                                              .video_collection_outlined,
-                                                                          size:
-                                                                              27,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  const Text(
-                                                                    "Camera",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blueGrey,
-                                                                        fontSize:
-                                                                            15),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                  height: 15),
-                                                              Column(children: [
-                                                                CircleAvatar(
-                                                                  radius: 25,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .teal,
-                                                                  child: IconButton(
-                                                                      onPressed: () {},
-                                                                      icon: const Icon(
-                                                                        Icons
-                                                                            .location_pin,
-                                                                        size:
-                                                                            27,
-                                                                        color: Colors
-                                                                            .white,
-                                                                      )),
-                                                                ),
-                                                                const SizedBox(
-                                                                    height: 5),
-                                                                const Text(
-                                                                  "Location",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueGrey,
-                                                                      fontSize:
-                                                                          15),
-                                                                ),
-                                                                const SizedBox(
-                                                                    height: 15),
-                                                              ]),
-                                                              const SizedBox(
-                                                                  height: 15),
-                                                            ],
+                                                          const Text("Document",style:TextStyle(fontSize:20,color: Colors.white))
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 40,
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            radius: 20,
+                                                            child: IconButton(
+                                                                onPressed: () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .video_collection,
+                                                                    color: Colors
+                                                                        .lightBlueAccent)),
                                                           ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: [
-                                                              Column(
-                                                                children: [
-                                                                  CircleAvatar(
-                                                                    radius: 25,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .blue,
-                                                                    child: IconButton(
-                                                                        onPressed: () {},
-                                                                        icon: const Icon(
-                                                                          Icons
-                                                                              .person,
-                                                                          size:
-                                                                              27,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          5),
-                                                                  const Text(
-                                                                    "Contact",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blueGrey,
-                                                                        fontSize:
-                                                                            15),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ],
+                                                          const Text("Video",style:TextStyle(fontSize:20,color: Colors.white))
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 40,
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            radius: 20,
+                                                            child: IconButton(
+                                                                onPressed: () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .insert_photo,
+                                                                    color: Colors
+                                                                        .indigo)),
                                                           ),
-                                                        ]))
-                                              ],
-                                            ),
+                                                          const Text("Gallery",style:TextStyle(fontSize:20,color: Colors.white))
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 30,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            radius: 20,
+                                                            child: IconButton(
+                                                                onPressed: () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .camera_alt,
+                                                                    color: Colors
+                                                                        .pink)),
+                                                          ),
+                                                          const Text("Camera",style:TextStyle(fontSize:20,color: Colors.white))
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 40,
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            radius: 20,
+                                                            child: IconButton(
+                                                                onPressed: () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .headphones,
+                                                                    color: Colors
+                                                                        .orange)),
+                                                          ),
+                                                          const Text("Audio",style:TextStyle(fontSize:20,color: Colors.white))
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 40,
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            radius: 20,
+                                                            child: IconButton(
+                                                                onPressed: () {},
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .contacts,
+                                                                    color: Colors
+                                                                        .blue)),
+                                                          ),
+                                                          const Text("Contact",style:TextStyle(fontSize:20,color: Colors.white))
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                        )),
+                                        );
+                                      });
+                                },
                                 icon: const Icon(
                                   Icons.attach_file_rounded,
                                   size: 20,
@@ -801,11 +785,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget emojiSelect() {
-    return EmojiPicker(onEmojiSelected: (emoji, category) {
-      print(emoji);
-      setState(() {
-        message.text = message.text;
-      });
-    });
+    return EmojiPicker();
   }
 }
