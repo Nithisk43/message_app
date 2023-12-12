@@ -498,11 +498,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                       context: context,
                                       builder: (context) {
                                         return SizedBox(
-                                          height: 150,
-                                          width: 200,
+                                          height:400,
+                                          width:300,
                                           child: AlertDialog(
+                                            backgroundColor:Colors.black,
+                                             alignment: Alignment.bottomCenter,
                                             actions: [
                                               Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
@@ -513,13 +516,17 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 20,
+                                                            backgroundColor: Colors.indigo,
                                                             child: IconButton(
-                                                                onPressed: () {},
+                                                                onPressed: () {
+                                                                  pdfdoc(context);
+                                                                  Navigator.pop(context);
+                                                                },
                                                                 icon: const Icon(
                                                                     Icons
                                                                         .insert_drive_file,
                                                                     color: Colors
-                                                                        .indigo)),
+                                                                        .white)),
                                                           ),
                                                           const Text("Document",style:TextStyle(fontSize:20,color: Colors.white))
                                                         ],
@@ -531,13 +538,17 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 20,
+                                                            backgroundColor: Colors.lightBlueAccent,
                                                             child: IconButton(
-                                                                onPressed: () {},
+                                                                onPressed: () {
+                                                                  videofile(context);
+                                                                  Navigator.pop(context);
+                                                                },
                                                                 icon: const Icon(
                                                                     Icons
                                                                         .video_collection,
                                                                     color: Colors
-                                                                        .lightBlueAccent)),
+                                                                        .white)),
                                                           ),
                                                           const Text("Video",style:TextStyle(fontSize:20,color: Colors.white))
                                                         ],
@@ -549,13 +560,17 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 20,
+                                                            backgroundColor: Colors.purple,
                                                             child: IconButton(
-                                                                onPressed: () {},
+                                                                onPressed: () {
+                                                                  pickAadharImage(context);
+                                                                  Navigator.pop(context);
+                                                                },
                                                                 icon: const Icon(
                                                                     Icons
                                                                         .insert_photo,
                                                                     color: Colors
-                                                                        .indigo)),
+                                                                        .white)),
                                                           ),
                                                           const Text("Gallery",style:TextStyle(fontSize:20,color: Colors.white))
                                                         ],
@@ -574,13 +589,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 20,
+                                                            backgroundColor: Colors.pink,
                                                             child: IconButton(
                                                                 onPressed: () {},
                                                                 icon: const Icon(
                                                                     Icons
                                                                         .camera_alt,
                                                                     color: Colors
-                                                                        .pink)),
+                                                                        .white)),
                                                           ),
                                                           const Text("Camera",style:TextStyle(fontSize:20,color: Colors.white))
                                                         ],
@@ -592,13 +608,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 20,
+                                                            backgroundColor: Colors.orange,
                                                             child: IconButton(
                                                                 onPressed: () {},
                                                                 icon: const Icon(
                                                                     Icons
                                                                         .headphones,
                                                                     color: Colors
-                                                                        .orange)),
+                                                                        .white)),
                                                           ),
                                                           const Text("Audio",style:TextStyle(fontSize:20,color: Colors.white))
                                                         ],
@@ -610,13 +627,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 20,
+                                                            backgroundColor: Colors.blueAccent,
                                                             child: IconButton(
                                                                 onPressed: () {},
                                                                 icon: const Icon(
                                                                     Icons
                                                                         .contacts,
                                                                     color: Colors
-                                                                        .blue)),
+                                                                        .white)),
                                                           ),
                                                           const Text("Contact",style:TextStyle(fontSize:20,color: Colors.white))
                                                         ],
