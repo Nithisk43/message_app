@@ -202,12 +202,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                   children: [
                                     snapshot.data!.docs[index]["Type"] ==
                                             "image"
-                                        ? Image.network(
-                                            snapshot.data!.docs[index]["image"],
-                                            fit: BoxFit.contain,
-                                            height: 120,
-                                            width: 150,
-                                          )
+                                        ? Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.network(
+                                              snapshot.data!.docs[index]["image"],
+                                              fit: BoxFit.fitHeight,
+                                              height:200,
+                                              width: 100,
+                                            ),
+                                        )
                                         : snapshot.data!.docs[index]["Type"] ==
                                                 "Document"
                                             ? Container(
@@ -220,7 +223,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                   // image:DecorationImage(
-                                                  //     image:NetworkImage(widget.url))
+                                                  //     image:FileImage(File.fromUri()))
                                                 ),
                                                 child: Expanded(
                                                   child: SizedBox(
@@ -248,77 +251,26 @@ class _ChatScreenState extends State<ChatScreen> {
                                             : snapshot.data!.docs[index]
                                                         ["Type"] ==
                                                     "Video"
-                                                ? Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .height,
-                                                        child: _controller.value
-                                                                .isInitialized
-                                                            ? AspectRatio(
-                                                                aspectRatio:
-                                                                    _controller
-                                                                        .value
-                                                                        .aspectRatio,
-                                                                child: VideoPlayer(
-                                                                    _controller))
-                                                            : Container(),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              _controller.value
-                                                                      .isPlaying
-                                                                  ? _controller
-                                                                      .pause()
-                                                                  : _controller
-                                                                      .play();
-                                                            });
-                                                          },
-                                                          child: CircleAvatar(
-                                                            radius: 33,
-                                                            backgroundColor:
-                                                                Colors.black38,
-                                                            child: Icon(
-                                                              _controller.value
-                                                                      .isPlaying
-                                                                  ? Icons.pause
-                                                                  : Icons
-                                                                      .play_arrow,
+                                                ? SizedBox()
+                                                : Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                      color: Colors.grey,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 10,
+                                                              bottom: 10,
+                                                              left: 10,
+                                                              right: 10),
+                                                      child: Text(
+                                                          snapshot.data!
+                                                                  .docs[index]
+                                                              ["Message"],
+                                                          style: const TextStyle(
                                                               color:
-                                                                  Colors.white,
-                                                              size: 50,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                : Container(
-                                                    color: Colors.grey,
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 10,
-                                                            bottom: 10,
-                                                            left: 10,
-                                                            right: 10),
-                                                    child: Text(
-                                                        snapshot.data!
-                                                                .docs[index]
-                                                            ["Message"],
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                  )
+                                                                  Colors.white)),
+                                                    ),
+                                                )
                                   ],
                                 ));
                           }
@@ -333,8 +285,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               children: [
                                 snapshot.data!.docs[index]["Type"] == "image"
                                     ? SizedBox(
-                                        height: 100,
-                                        width: 200,
+                                        height:300,
+                                        width: 100,
                                         child: Image.network(snapshot
                                             .data!.docs[index]["image"]),
                                       )
@@ -374,59 +326,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           )
                                         : snapshot.data!.docs[index]["Type"] ==
                                                 "Video"
-                                            ? Stack(
-                                                children: [
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .height,
-                                                    child: _controller
-                                                            .value.isInitialized
-                                                        ? AspectRatio(
-                                                            aspectRatio:
-                                                                _controller
-                                                                    .value
-                                                                    .aspectRatio,
-                                                            child: VideoPlayer(
-                                                                _controller))
-                                                        : Container(),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          _controller.value
-                                                                  .isPlaying
-                                                              ? _controller
-                                                                  .pause()
-                                                              : _controller
-                                                                  .play();
-                                                        });
-                                                      },
-                                                      child: CircleAvatar(
-                                                        radius: 33,
-                                                        backgroundColor:
-                                                            Colors.black38,
-                                                        child: Icon(
-                                                          _controller.value
-                                                                  .isPlaying
-                                                              ? Icons.pause
-                                                              : Icons
-                                                                  .play_arrow,
-                                                          color: Colors.white,
-                                                          size: 50,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
+                                            ? SizedBox()
                                             : Container(
                                                 color: Colors.teal,
                                                 padding: const EdgeInsets.only(
@@ -788,8 +688,8 @@ class _ChatScreenState extends State<ChatScreen> {
           .ref()
           .child("Video")
           .child("Video/${file.name}");
-      var uploadPdf = await ref.putFile(doc!);
-      docUrl = await uploadPdf.ref.getDownloadURL().then((value) {
+      var uploadvideo = await ref.putFile(doc!);
+      docUrl = await uploadvideo.ref.getDownloadURL().then((value) {
         loadDocument();
         Navigator.push(
             context,

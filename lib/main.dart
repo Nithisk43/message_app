@@ -2,6 +2,8 @@ import 'package:chatapp/Premission/CameraScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'Document/VideoView.dart';
+
 
 
 
@@ -9,7 +11,7 @@ import 'package:flutter/material.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
-      options:  FirebaseOptions(
+      options:  const FirebaseOptions(
           apiKey: "AIzaSyAEIhFdluAXDjc2eOy0SCvI80A_m02mwNo",
           appId: "1:1046984787158:android:c27fcde188b5aad3eb7577",
           messagingSenderId: "1046984787158",
