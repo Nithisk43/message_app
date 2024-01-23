@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:video_player/video_player.dart';
 import '../Document/ImageScreen.dart';
 import '../Document/PdfScreen.dart';
 import '../Document/VideoScreen.dart';
@@ -60,9 +59,6 @@ class _ChatScreenState extends State<ChatScreen> {
       isloading = false;
     });
   }
-
-  late VideoPlayerController _controller;
-  bool _isExpanded = false;
 
   @override
   void initState() {

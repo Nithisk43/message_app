@@ -30,7 +30,7 @@ class _OtpScreenState extends State<OtpScreen> {
           final uid = user!.uid;
           print(">>>>>>>>>>>>>>>>>>>>${uid}");
           var im =
-              await FirebaseFirestore.instance.collection("new").doc(uid).get();
+          await FirebaseFirestore.instance.collection("new").doc(uid).get();
           if (im.exists) {
             var pref =await  SharedPreferences.getInstance();
             pref.setBool('login', true);
@@ -61,7 +61,7 @@ class _OtpScreenState extends State<OtpScreen> {
       },
       codeSent: (String? verificationID, int? resendToken) {
         setState(() {
-          print(">>>>>>>>>>>>>>>>>>>>>>>>${verificationID}");
+          print(">>>>>>>>>>>>>>>>>>>>>>>>$verificationID");
           _verificationCode = verificationID;
         });
       },
